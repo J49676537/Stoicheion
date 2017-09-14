@@ -1,0 +1,106 @@
+*{margin: 0; padding: 0; /*outline: 1px solid red;*/}
+hr {width: 90%; margin: 0.5em auto; border: 1px inset;}
+
+@font-face{font-family: TitleFont; src: url('../font/Tangerine.ttf');}
+@font-face{font-family: MainFont;  src: url('../font/NotoSans.ttf');}
+
+body{
+	background: url(img/cityscape.gif) no-repeat fixed center;
+	background-size: cover;
+	font-family: MainFont, Helvetica, sans-serif;
+	text-align: center;
+}
+
+h1{font-family: TitleFont; font-size: 3.5em; margin-top: 0.25em;}
+h2{font-family: TitleFont; font-size: 2em;}
+h3{font-size: 0.8em; color: red;}
+p {font-size: 0.8em;}
+
+.rules, .scoreboard, .leaderboard{width: 33%; float: left;}
+.floatclear{clear: both;}
+
+.fade-out{
+	color: red;
+	animation-name: fade-out;
+	animation-duration: 1.5s;
+	animation-timing-function: ease-in;
+	animation-fill-mode: both;
+}
+
+@keyframes fade-out{
+	0% {opacity: 1;}
+	100% {opacity: 0;}
+}
+
+/* ==================== Board ==================== */
+/* ==================== center something direct in middle, keep this code ==================== */
+/*#board{
+	cursor: pointer;
+	border: 3px solid black;
+	border-collapse: seperate;
+	position: fixed;
+	width: 16em;
+	height: 16em;
+	margin-left: -8em;
+	margin-top: -8em;
+	top: 50%;
+	left: 50%;
+}*/
+
+#board{
+	min-width: 16em;
+	min-height: 16em;
+	margin: 0.5em auto;
+	border: 3px solid black;
+	border-collapse: seperate;
+	cursor: pointer;
+}
+
+#board td{
+	border: 1px solid white;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	text-align: left;
+	vertical-align: top;
+	color: transparent;
+}
+
+/* ==================== Grids ==================== */
+.boxes{
+	width: 100%;
+}
+
+
+.grid{
+	margin: 0 0.5em;
+	border: 3px solid black;
+	border-collapse: seperate;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.grid td{
+	width: 0.7em;
+	height: 0.7em;
+	border: 1px solid white;
+	background-size: 0.7em;
+	background-repeat: no-repeat;
+}
+
+.grid:hover{
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==================== Buttons ==================== */
+button{
+	background: white;
+	min-width: 150px;
+	margin: 0 0.5em;
+	padding: 15px 0;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+button:hover{
+	background: #EEEEEE;
+}
