@@ -1,2 +1,2 @@
-# Elements
+# Stoicheion
 Javascript Pentomino Game
