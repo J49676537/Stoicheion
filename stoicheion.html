@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Javascript Game">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="styleGame.css">
+	<title>Stoicheion</title>
+</head>
+
+<body>
+	<h1>Stoicheion</h1> <hr>
+
+	<div id="rules">
+		<br>
+		<h2>Instructions</h3>
+		<p>Arrange shapes to fill up the grid completely.</p>
+		<p>You can overlap the same elements.</p> 
+		<p>The more you overlap the greater your score!</p><br>
+		<p>[New Shape] replaces the currently selected shape.</p>
+		<p>[Rotate] and [Mirror] are free.</p> <br>
+		<p>You gain a New Shape if you complete the board.</p>
+		<br>
+	</div>
+
+	<div id="scoreboard">
+		<h2>Score: <span id="score">0</span></h2>
+		<h3><span class="fade-out" id="message">&nbsp;</span></h3>
+		<table id="board"></table>
+	</div>
+
+	<div id="credits">
+		<br>
+		<h2>Credits</h2>
+		<p>Element Icons : <a href="https://alda-rana.deviantart.com/art/Commission-Elements-527016079" target="_blank">Alda Rana</a></p>
+		<p>Background : <a href="https://www.pexels.com/" target="_blank">Pexels</a></p>
+		<br> <br>
+		<h2>Bugs</h2>
+		<p>Hover color remains after filling the board.</p>
+		<br>
+	</div>
+
+	<div class="floatclear"></div>
+
+	<div class="boxes">
+		<table class="grid" id="box00"></table>
+		<table class="grid" id="box01"></table>
+		<table class="grid" id="box02"></table>
+		<table class="grid" id="box03"></table>
+		<table class="grid" id="box04"></table>
+	</div> <br>
+
+	<div class="wrapper">
+		<button onclick="fillGrid()">New Shape (<span id="stock">5</span> left)</button>
+		<button onclick="rotateGrid()">Rotate</button>
+		<button onclick="flipGrid()">Mirror</button>
+	</div>
+
+	<audio id="click" src="sound/click.wav"></audio>
+	<audio id="whip" src="sound/whip.wav"></audio>
+	<audio id="bite" src="sound/bite.wav"></audio>
+	<script src="game.js"></script>
+</body>
+</html>

@@ -144,6 +144,7 @@ function fillGrid(){
 			var newone = elm.cloneNode(true);
 			newone.innerHTML = "No Shape Selected!";
 			elm.parentNode.replaceChild(newone, elm);
+			playAudio("bite");
 		}
 	} else{
 		// fading error message
@@ -151,6 +152,7 @@ function fillGrid(){
 		var newone = elm.cloneNode(true);
 		newone.innerHTML = "No More Shapes!";
 		elm.parentNode.replaceChild(newone, elm);
+		playAudio("bite");
 	}
 }
 
@@ -176,6 +178,7 @@ function rotateGrid(){
 			var newone = elm.cloneNode(true);
 			newone.innerHTML = "No Shape Selected!";
 			elm.parentNode.replaceChild(newone, elm);
+			playAudio("bite");
 		}
 	var newVectors = rotateVectors(gridVectors);
 	drawShape(newVectors, gridId);
@@ -192,6 +195,7 @@ function flipGrid(){
 			var newone = elm.cloneNode(true);
 			newone.innerHTML = "No Shape Selected!";
 			elm.parentNode.replaceChild(newone, elm);
+			playAudio("bite");
 		}
 	var newVectors = flipVectors(gridVectors);
 	drawShape(newVectors, gridId);
