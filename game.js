@@ -91,7 +91,7 @@ function selectGrid(){
 			}
 		}
 		this.id += "S";
-		this.style.backgroundColor = "rgba(255, 255, 0, 0.5)";
+		this.style.backgroundColor = "rgba(255, 255, 255, 0.75)";
 	}
 }
 
@@ -260,6 +260,7 @@ function shapeHover(position){
 	try{var vectors = getSelectedVectors(gridId);}
 		catch(e){return;}
 
+	var outside = false;												// if any part of the shape is outside the box
 	for (var i=0; i<vectors.length; i++){							// for each element in the array, which contains [x, y, bg]
 		var r = vectors[i][0] + Number(position.substring(0,2));	// r = x position of cursor relative to the center
 		var c = vectors[i][1] + Number(position.substring(2,4));	// c = y position of cursor relative to the center
@@ -272,7 +273,8 @@ function shapeHover(position){
 			if (square.id.charAt(4) !== "*"){
 				// draw the background image with a white background
 				square.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
-				square.style.backgroundImage = vectors[i][2];}
+				square.style.backgroundImage = vectors[i][2];
+			}
 
 			// else the square must already be filled, so if it has the same background image...
 			// ... you can place same element on top of each other, background turns green to show this
@@ -284,6 +286,24 @@ function shapeHover(position){
 				square.style.backgroundColor = "rgba(255, 0, 0, 0.75)";
 			}
 		}
+		else {
+			outside = true;
+		}
+	}
+
+	// second for loop to indicate when part of the shape is outside the box
+	if (outside === true) {
+		for (var i=0; i<vectors.length; i++){							// for each element in the array, which contains [x, y, bg]
+			var r = vectors[i][0] + Number(position.substring(0,2));	// r = x position of cursor relative to the center
+			var c = vectors[i][1] + Number(position.substring(2,4));	// c = y position of cursor relative to the center
+			try {
+				var square = document.getElementById("board").rows[r].cells[c];
+				square.style.borderColor = "rgba(255, 0, 0, 0.75)";
+			}
+			catch(e) {
+				// carry on
+			};
+		}
 	}
 }
 
@@ -291,6 +311,7 @@ function clearHover(){
 	for (var r=0; r<5; r++){
 		for (var c=0; c<5; c++){
 			document.getElementById("board").rows[r].cells[c].style.backgroundColor = "";
+			document.getElementById("board").rows[r].cells[c].style.borderColor = "white";
 			if (document.getElementById("board").rows[r].cells[c].id.charAt(4) !== "*"){
 				document.getElementById("board").rows[r].cells[c].style.backgroundImage = "";
 			}
@@ -299,7 +320,7 @@ function clearHover(){
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
-//				code below here functional but messy & inefficent
+//				code below here functional but messy, need to review at some point
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
 function placeShape(position){
 	var gridId = getSelected();
@@ -353,10 +374,12 @@ function placeShape(position){
 	document.getElementById(gridId).style.backgroundColor = "";
 	document.getElementById(gridId).id = gridId.slice(0,-1);
 
+	//calculateScore();
 	checkGameOver();
 }
 // ----------------------------------------------------------------------------------------------
 function checkGameOver(){
+	// stop this function if there is an empty cell
 	for (var r=0; r<5; r++){
 		for (var c=0; c<5; c++){
 			if (document.getElementById("board").rows[r].cells[c].style.backgroundImage === ""){return;}
@@ -392,6 +415,32 @@ function checkGameOver(){
 	var stock = switchIntStr(document.getElementById("stock").innerHTML);
 	document.getElementById("stock").innerHTML = switchIntStr(stock + 1);
 }
+
+/*
+function calculateScore() {
+	var originalScore = switchIntStr(document.getElementById("score").innerHTML);
+	var newScore = 0;
+
+	for (var r=0; r<5; r++){
+		for (var c=0; c<5; c++){
+			// calculate the total score for the board
+			var plusFactor = document.getElementById("board").rows[r].cells[c].innerHTML;
+			if (plusFactor === "*"){
+				plusFactor = 10;
+				newScore = newScore + Math.pow(plusFactor, plusFactor);
+			} else if (plusFactor === "+0"){
+				newScore += 0;
+			}
+			else{
+				plusFactor = switchIntStr(plusFactor);
+				newScore = newScore + Math.pow(plusFactor, plusFactor);
+			}
+		}
+	}
+
+	document.getElementById("score").innerHTML = switchIntStr(score + totalScore);
+}
+*/
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
 function playAudio(id){

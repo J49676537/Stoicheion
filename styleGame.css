@@ -1,4 +1,4 @@
-*{padding: 0; border: 0; margin: 0; /*outline: red solid thin;*/}
+	*{padding: 0; border: 0; margin: 0; /*outline: red solid thin;*/}
 hr{width: 90%; margin: 0.5em auto; border: 1px inset;}
 
 @font-face{font-family: TitleFont; src: url('font/Cardo.ttf');}
@@ -43,7 +43,7 @@ a{
 }
 
 a:hover{
-	color: #FAEBED;
+	color: white;
 }
 
 ::selection {
