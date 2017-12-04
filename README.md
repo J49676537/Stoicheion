@@ -1,3 +1,3 @@
 ## Stoicheion
 
-JavaScript Mono/Do/Tro/Tetro/Pentomino Game
+Mono/Do/Tro/Tetro/Pento-mino Arranging Game
