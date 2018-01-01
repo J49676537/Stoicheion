@@ -1,21 +1,72 @@
-	*{padding: 0; border: 0; margin: 0; /*outline: red solid thin;*/}
+*{padding: 0; border: 0; margin: 0; /*outline: red solid thin;*/}
 hr{width: 90%; margin: 0.5em auto; border: 1px inset;}
 
 @font-face{font-family: TitleFont; src: url('font/Cardo.ttf');}
 @font-face{font-family: MainFont;  src: url('font/Cardo.ttf');}
 
 body{
-	background: url(img/bgcoffee.jpg);
+	background: url(img/bgCoffee.jpg);
 	background-size: cover;
-	height: 97vh;
 	font-family: MainFont, Helvetica, sans-serif;
 	text-align: center;
 }
 
-h1{font-family: TitleFont; font-size: 3.5em; margin-top: 0.25em;}
+h1{font-family: TitleFont; font-size: 3.5em;}
 h2{font-family: TitleFont; font-size: 2em;}
 h3{font-size: 0.8em; color: red;}
 p {font-size: 1em;}
+
+/* ==================== Landing ==================== */
+#landing {
+	background-image: url(img/bgAtelier.jpg);
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	text-align: center;
+
+	/* flexbox */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+
+	/* turns full screen landing into a modal */
+	position: fixed;
+	z-index: 1;
+	width: 100%;
+}
+
+#landing p {
+	margin: 10px;
+	font-size: 1.1em;
+}
+
+#landing button {
+	width: 125px;
+	margin: 10px auto;
+	padding: 10px;
+	border-radius: 5px;
+	font-size: 0.9em;
+}
+
+#landing button {
+	background-color: mintcream;
+	border: 1px #CCCCCC solid;
+	cursor: pointer;
+}
+
+#landing button:hover {
+	background-color: white;
+}
+
+/* ================================================= */
+.textbox{
+	background: rgba(255, 255, 255, 0.85);
+	padding: 1em;
+	width: 30%;
+	margin: auto;
+	border-radius: 15px;
+}
 
 #rules, #scoreboard, #credits{
 	width: 33%;
@@ -49,6 +100,8 @@ a:hover{
 ::selection {
   background: #FFE5B5;
 }
+
+
 
 /* ==================== Board ==================== */
 /* ==================== center something directly in the middle ==================== */

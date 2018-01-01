@@ -22,30 +22,21 @@ var shapeList = [
 	[ [1,1],[2,1],[2,2],[3,2],[3,3] ]	// 5Z
 ];
 
-// Setup
 function main(){
-	shapeSetup();
-	drawBoard();
-	drawGrids();
-}
-
-// Assign Background Url Space in Array [x, y, bg]
-function shapeSetup(){
+	// Shape Setup - Assign Background Url Space in Array [x, y, bg]
 	for (var i=0; i<shapeList.length; i++){
 		for (var j=0; j<shapeList[i].length; j++){
 			shapeList[i][j].push("");
 		}
 	}
-}
 
-// Draw Gameboard
-function drawBoard(){
+	// Draw Gameboard
 	var board = document.getElementById("board");
 	for (var r=0; r<5; ++r){
 		var tr = board.appendChild(document.createElement("tr"));
 		for (var c=0; c<5; ++c){
 			var cell = tr.appendChild(document.createElement("td"));
-			// id equals position relative to the center
+			// id equals coordinate relative to the center
 			if (r-2 >= 0){cell.id = "+" + (r-2);}
 				else{cell.id = "" + (r-2);}
 			if (c-2 >= 0){cell.id += "+" + (c-2);}
@@ -58,10 +49,8 @@ function drawBoard(){
 			cell.innerHTML = '+0';
 		}
 	}
-}
 
-// Draw Shape Inventory
-function drawGrids(){
+	// Draw Inventory of Five Random Shapes
 	var gridList = document.getElementsByClassName("grid");
 	for (var i=0; i<5; i++){
 		gridList[i].addEventListener("click", selectGrid);
@@ -71,12 +60,12 @@ function drawGrids(){
 				tr.appendChild(document.createElement("td"));
 			}
 		}
-		var newShape = deepCopy();
-		drawShape(newShape, gridList[i].id);
+		// draw a new random shape in each grid
+		drawShape(deepCopyShape(), gridList[i].id);
 	}
 }
 
-// Select Shape
+// Select Shape on Inventory Grid Click
 function selectGrid(){
 	var gridList = document.getElementsByClassName("grid");
 	// unselect if already selected
@@ -105,11 +94,12 @@ function getSelected(){
 	}
 }
 
-// Deep Copy Random Shape & Add Random Background Image per Vector
-function deepCopy(){
+// Deep Copy Random Shape from Shape List & Add Random Background Image per Vector
+// WARNING: this function is nested in loops
+function deepCopyShape(){
 	var randShape = shapeList[Math.floor(Math.random() * (shapeList.length))];
 	var shapeClone = [];
-	for (var j=0; j<randShape.length; j++){	// nested in for (i) loop
+	for (var j=0; j<randShape.length; j++){
 		shapeClone[j] = randShape[j].slice();
 		var randNum = Math.ceil(Math.random() * 4);
 		shapeClone[j][2] = "url('img/element/element0" + randNum + ".png')";
@@ -118,7 +108,7 @@ function deepCopy(){
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
-// Switch String to Comma Seperated Number & Back
+// Switch String to Comma Separated Number & Back
 function switchIntStr(input){
 	if (typeof input === "string"){
 		return parseInt(input.replace(",", "").replace("+", ""));
@@ -128,42 +118,42 @@ function switchIntStr(input){
 	}
 }
 
+// Error Message Cloning to Replay Animation & Sound
+function errorMessage(messageText, audio){
+	var elm = document.getElementById("message");
+	var newMessage = elm.cloneNode(true);
+	newMessage.innerHTML = messageText;
+	elm.parentNode.replaceChild(newMessage, elm);
+	playAudio(audio);
+}
+
 // Replace Selected Shape (New Shape)
 function fillGrid(){
 	var stock = switchIntStr(document.getElementById("stock").innerHTML);
 	if (stock > 0){
 		var gridId = getSelected();
-		var newShape = deepCopy();
+		var newShape = deepCopyShape();
 		try{
 			drawShape(newShape, gridId);
 			playAudio("whip");
 			document.getElementById("stock").innerHTML = switchIntStr(stock - 1);
 		} catch(e){
-			// fading error message
-			var elm = document.getElementById("message");
-			var newone = elm.cloneNode(true);
-			newone.innerHTML = "No Shape Selected!";
-			elm.parentNode.replaceChild(newone, elm);
-			playAudio("bite");
+			errorMessage("No Shape Selected!", "bite");
 		}
 	} else{
-		// fading error message
-		var elm = document.getElementById("message");
-		var newone = elm.cloneNode(true);
-		newone.innerHTML = "No More Shapes!";
-		elm.parentNode.replaceChild(newone, elm);
-		playAudio("bite");
+		errorMessage("No More Shapes!", "bite");
 	}
 }
 
-// Clear Grid & Draw Shape
+// Draw New Shape in Selected Invetory Grid - Called by NewShape/Rotate/Mirror
+// WARNING: this function is nested in loops
 function drawShape(vectors, gridId){
 	for (var r=0; r<5; r++){
 		for (var c=0; c<5; c++){
 			document.getElementById(gridId).rows[r].cells[c].style.backgroundImage = "";
 		}
 	}
-	for (var j=0; j<vectors.length; j++){	// nested in for (i) loop
+	for (var j=0; j<vectors.length; j++){
 		document.getElementById(gridId).rows[ vectors[j][0] ].cells[ vectors[j][1] ].style.backgroundImage = vectors[j][2];
 	}
 }
@@ -172,14 +162,7 @@ function drawShape(vectors, gridId){
 function rotateGrid(){
 	var gridId = getSelected();
 	try {var gridVectors = getSelectedVectors(gridId);}
-		catch(e){
-			// fading error message
-			var elm = document.getElementById("message");
-			var newone = elm.cloneNode(true);
-			newone.innerHTML = "No Shape Selected!";
-			elm.parentNode.replaceChild(newone, elm);
-			playAudio("bite");
-		}
+		catch(e){errorMessage("No Shape Selected!", "bite");}
 	var newVectors = rotateVectors(gridVectors);
 	drawShape(newVectors, gridId);
 	playAudio("click");
@@ -189,20 +172,13 @@ function rotateGrid(){
 function flipGrid(){
 	var gridId = getSelected();
 	try {var gridVectors = getSelectedVectors(gridId);}
-		catch(e){
-			// fading error message
-			var elm = document.getElementById("message");
-			var newone = elm.cloneNode(true);
-			newone.innerHTML = "No Shape Selected!";
-			elm.parentNode.replaceChild(newone, elm);
-			playAudio("bite");
-		}
+		catch(e){errorMessage("No Shape Selected!", "bite");}
 	var newVectors = flipVectors(gridVectors);
 	drawShape(newVectors, gridId);
 	playAudio("click");
 }
 
-// Return Vector List & Background Images of Selected Shape
+// Return Vector List & Background Images (Elements) of Selected Shape
 function getSelectedVectors(gridId){
 	var vectors = [];
 	for (var r=0; r<5; r++){
@@ -260,7 +236,7 @@ function shapeHover(position){
 	try{var vectors = getSelectedVectors(gridId);}
 		catch(e){return;}
 
-	var outside = false;												// if any part of the shape is outside the box
+	var outside = false;											// if any part of the shape is outside the box
 	for (var i=0; i<vectors.length; i++){							// for each element in the array, which contains [x, y, bg]
 		var r = vectors[i][0] + Number(position.substring(0,2));	// r = x position of cursor relative to the center
 		var c = vectors[i][1] + Number(position.substring(2,4));	// c = y position of cursor relative to the center
@@ -286,12 +262,11 @@ function shapeHover(position){
 				square.style.backgroundColor = "rgba(255, 0, 0, 0.75)";
 			}
 		}
-		else {
-			outside = true;
-		}
+		// ... else the shape must have part of it outside the board
+		else {outside = true;}
 	}
 
-	// second for loop to indicate when part of the shape is outside the box
+	// second loop to visually indicate when part of the shape is outside the box
 	if (outside === true) {
 		for (var i=0; i<vectors.length; i++){							// for each element in the array, which contains [x, y, bg]
 			var r = vectors[i][0] + Number(position.substring(0,2));	// r = x position of cursor relative to the center
@@ -300,18 +275,20 @@ function shapeHover(position){
 				var square = document.getElementById("board").rows[r].cells[c];
 				square.style.borderColor = "rgba(255, 0, 0, 0.75)";
 			}
-			catch(e) {
-				// carry on
-			};
+			// ignore cases where the cell is outside
+			catch(e) {};
 		}
 	}
+
 }
 
 function clearHover(){
 	for (var r=0; r<5; r++){
 		for (var c=0; c<5; c++){
 			document.getElementById("board").rows[r].cells[c].style.backgroundColor = "";
+			// for when the shape is outside the box
 			document.getElementById("board").rows[r].cells[c].style.borderColor = "white";
+			// if the background cell is not filled, remove the hover element image
 			if (document.getElementById("board").rows[r].cells[c].id.charAt(4) !== "*"){
 				document.getElementById("board").rows[r].cells[c].style.backgroundImage = "";
 			}
@@ -320,8 +297,7 @@ function clearHover(){
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
-//				code below here functional but messy, need to review at some point
-// ------------------------------------------------------------------------------------------------------------------------------------------------------
+// Place Selected Shape on Board with Click
 function placeShape(position){
 	var gridId = getSelected();
 	// clicking on the board with nothing selected does nothing
@@ -341,7 +317,7 @@ function placeShape(position){
 		}
 	}
 
-	// passed all checks (needs to be in a seperate loop) (probably)
+	// passed all checks so place the shape (needs to be in a seperate loop) (probably)
 	for (var i=0; i<vectors.length; i++){
 		var r = vectors[i][0] + Number(position.substring(0,2));
 		var c = vectors[i][1] + Number(position.substring(2,4));
@@ -361,20 +337,25 @@ function placeShape(position){
 			}
 		}
 
-		// then "draw" shape, if already filled don't add another (*)
+		// then "draw" shape on the board, if already filled don't add another (*)
 		if (document.getElementById("board").rows[r].cells[c].id.charAt(4) !== "*"){
 			document.getElementById("board").rows[r].cells[c].id += "*";
 		}
 	}
 	
+	// clear the hover color after placing shape
+	clearHover();
+
 	// replace the used shape
-	newShape = deepCopy();
+	newShape = deepCopyShape();
 	drawShape(newShape, gridId);
 	playAudio("whip");
 	document.getElementById(gridId).style.backgroundColor = "";
 	document.getElementById(gridId).id = gridId.slice(0,-1);
 
-	//calculateScore();
+	// Dynamic Score Calculation
+	calculateScore();
+
 	checkGameOver();
 }
 // ----------------------------------------------------------------------------------------------
@@ -386,67 +367,52 @@ function checkGameOver(){
 		}
 	}
 
-	var totalScore = 0;
 	// passed checks (board completely full)
 	for (var r=0; r<5; r++){
 		for (var c=0; c<5; c++){
-			// calculate the total score for the board
-			var plusFactor = document.getElementById("board").rows[r].cells[c].innerHTML;
-			if (plusFactor === "*"){
-				plusFactor = 10;
-			} else{
-				plusFactor = switchIntStr(plusFactor);
-			}
-			totalScore = totalScore + Math.pow(plusFactor, plusFactor);
-
 			// clear the board
 			var cell = document.getElementById("board").rows[r].cells[c];
 			cell.style.backgroundImage = "";
-			if (cell.id.charAt(4) === "*"){cell.id = cell.id.slice(0, -1);}
+			if (cell.id.charAt(4) === "*") {cell.id = cell.id.slice(0, -1);}
 
 			document.getElementById("board").rows[r].cells[c].innerHTML = "+0";
 			document.getElementById("board").rows[r].cells[c].style.color = "transparent";
 		}
 	}
 
-	var score = switchIntStr(document.getElementById("score").innerHTML);
-	document.getElementById("score").innerHTML = switchIntStr(score + totalScore);
 	// give one extra shape
 	var stock = switchIntStr(document.getElementById("stock").innerHTML);
 	document.getElementById("stock").innerHTML = switchIntStr(stock + 1);
 }
 
-/*
 function calculateScore() {
-	var originalScore = switchIntStr(document.getElementById("score").innerHTML);
-	var newScore = 0;
-
+	var score = 0;
+	// for each cell in the game board
 	for (var r=0; r<5; r++){
 		for (var c=0; c<5; c++){
-			// calculate the total score for the board
+			// check the plus factor...
 			var plusFactor = document.getElementById("board").rows[r].cells[c].innerHTML;
-			if (plusFactor === "*"){
-				plusFactor = 10;
-				newScore = newScore + Math.pow(plusFactor, plusFactor);
-			} else if (plusFactor === "+0"){
-				newScore += 0;
-			}
-			else{
+			if (plusFactor === "*") {plusFactor = "+10";}
+			// ignore +0 as the formula counts it as one point
+			if (plusFactor != "+0") {
 				plusFactor = switchIntStr(plusFactor);
-				newScore = newScore + Math.pow(plusFactor, plusFactor);
+				score += Math.pow(plusFactor, plusFactor);
 			}
 		}
 	}
-
-	document.getElementById("score").innerHTML = switchIntStr(score + totalScore);
+	document.getElementById("score").innerHTML = switchIntStr(score);
 }
-*/
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
 function playAudio(id){
 	var audio = document.getElementById(id);
 	if (audio.paused){audio.play();}
 	else{audio.currentTime = 0;}
+}
+
+function toggle(id) {
+	if (document.getElementById(id).style.display != "none") {document.getElementById(id).style.display = "none";}
+	else {document.getElementById(id).style.display = "block";}
 }
 
 main();
