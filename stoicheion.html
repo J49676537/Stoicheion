@@ -12,11 +12,17 @@
 	<div id="landing">
 		<div class="textbox">
 			<h1>Stoicheion</h1>
-			<p>Shape Arranging Game</p> <br>
 			<button type="button" onClick="toggle('landing')">Start</button> <br>
 			<button type="button" onClick="">Tutorial</button> <br>
-			<button type="button" onClick="">Credits</button> <br>
+			<button type="button" onClick="toggle('credits')">Credits</button> <br>
+
+			<div id="credits" style="display: none; text-shadow: none;">
+				<p>Backgrounds : <a href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=56866389" target="_blank">Novelance</a>, Atelier Meruru</p>
+				<p>Menu Icons : Atelier Sophie</p>
+				<p>Element Icons : <a href="https://alda-rana.deviantart.com/art/Commission-Elements-527016079" target="_blank">Alda Rana</a></p>
+			</div>
 		</div>
+		<!-- add game over button / mobile format -->
 	</div>
 
 	<h1 style="padding-top:0.25em">Stoicheion</h1> <hr>
@@ -39,18 +45,6 @@
 		<h2>Score: <span id="score">0</span></h2>
 		<h3><span class="fade-out" id="message">&nbsp;</span></h3>
 		<table id="board"></table>
-	</div>
-
-	<div id="credits">
-		<br>
-		<h2>Credits</h2>
-		<p>Element Icons : <a href="https://alda-rana.deviantart.com/art/Commission-Elements-527016079" target="_blank">Alda Rana</a></p>
-		<p>Background : <a href="https://www.pexels.com/" target="_blank">Pexels</a></p>
-		<br> <br>
-		<h2>Upcoming Updates</h2>
-		<p>Reset/Game Over Button</p>
-		<p>Prevent Cheating?</p>
-		<br>
 	</div>
 
 	<div class="floatclear"></div>
