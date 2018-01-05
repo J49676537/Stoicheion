@@ -157,8 +157,3 @@ button:focus {
 #game button:hover {
 	filter: drop-shadow(5px 5px 3px #CCCCCC);
 }
-
-.hidden {
-	color: transparent;
-	text-shadow: none;
-}

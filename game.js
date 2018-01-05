@@ -194,7 +194,7 @@ function getSelectedVectors(gridId){
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
 // Rotate vectors 90deg relative to the center (2,2), giving new coordinates through matrix multiplication
 function rotateVectors(vectors){
-	var R = [[0,-1],[1, 0]]; // rotation matrix
+	var R = [[0,1],[-1, 0]]; // rotation matrix
 
 	// DEEP copy of vector array - is this actually a deep copy? - doesn't matter it works
 	var newVectors = [];
@@ -379,6 +379,7 @@ function checkGameOver(){
 
 			document.getElementById("board").rows[r].cells[c].innerHTML = "+0";
 			document.getElementById("board").rows[r].cells[c].style.color = "transparent";
+			document.getElementById("board").rows[r].cells[c].style.textShadow = "none";
 		}
 	}
 
