@@ -331,9 +331,11 @@ function placeShape(position){
 				document.getElementById("board").rows[r].cells[c].style.color = "white";
 				document.getElementById("board").rows[r].cells[c].style.textAlign = "center";
 				document.getElementById("board").rows[r].cells[c].style.verticalAlign = "middle";
+				document.getElementById("board").rows[r].cells[c].style.textShadow = "1px 1px black";
 			} else{
 				document.getElementById("board").rows[r].cells[c].innerHTML = "+" + (switchIntStr(plusFactor) + 1);
 				document.getElementById("board").rows[r].cells[c].style.color = "white";
+				document.getElementById("board").rows[r].cells[c].style.textShadow = "1px 1px black";
 			}
 		}
 
@@ -410,6 +412,7 @@ function playAudio(id){
 	else{audio.currentTime = 0;}
 }
 
+// this function is pretty shit, need to rework it
 function toggle(id) {
 	if (document.getElementById(id).style.display === "none"){
 		document.getElementById(id).style.display = "block";

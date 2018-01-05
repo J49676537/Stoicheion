@@ -13,54 +13,45 @@
 		<div class="textbox">
 			<h1>Stoicheion</h1>
 			<button type="button" onClick="toggle('landing')">Start</button> <br>
-			<button type="button" onClick="">Tutorial</button> <br>
-			<button type="button" onClick="toggle('credits')">Credits</button> <br>
 
-			<div id="credits" style="display: none; text-shadow: none;">
+			<button type="button" onClick="toggle('tutorial')">Tutorial</button> <br>
+			<div id="tutorial" style="display:none">
+				<p>Click a shape to select it, click again to unselect.</p>
+				<p>Click on where you want to place shapes on the grid.</p>
+				<p>Arrange shapes to fill up the grid completely.</p>
+				<p>You can overlap the same elements.</p> 
+				<p>The more you overlap the greater your score!</p><br>
+				<p>[New Shape] replaces the currently selected shape.</p>
+				<p>It is free to [Rotate] and [Mirror] the selected shape.</p> <br>
+				<p>You gain a New Shape if you complete the board.</p>
+			</div>
+
+			<button type="button" onClick="toggle('credits')">Credits</button> <br>
+			<div id="credits" style="display:none">
 				<p>Backgrounds : <a href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=56866389" target="_blank">Novelance</a>, Atelier Meruru</p>
 				<p>Menu Icons : Atelier Sophie</p>
 				<p>Element Icons : <a href="https://alda-rana.deviantart.com/art/Commission-Elements-527016079" target="_blank">Alda Rana</a></p>
 			</div>
 		</div>
-		<!-- add game over button / mobile format -->
 	</div>
 
-	<h1 style="padding-top:0.25em">Stoicheion</h1> <hr>
-
-	<div id="rules">
-		<br>
-		<h2>Instructions</h3>
-		<p>Click a shape to select it, click again to unselect.</p>
-		<p>Click on where you want to place shapes on the grid.</p>
-		<p>Arrange shapes to fill up the grid completely.</p>
-		<p>You can overlap the same elements.</p> 
-		<p>The more you overlap the greater your score!</p><br>
-		<p>[New Shape] replaces the currently selected shape.</p>
-		<p>It is free to [Rotate] and [Mirror] the selected shape.</p> <br>
-		<p>You gain a New Shape if you complete the board.</p>
-		<br>
-	</div>
-
-	<div id="scoreboard">
+	<div id="game">
+		<h1>Stoicheion</h1> <hr>
 		<h2>Score: <span id="score">0</span></h2>
 		<h3><span class="fade-out" id="message">&nbsp;</span></h3>
 		<table id="board"></table>
-	</div>
 
-	<div class="floatclear"></div>
-
-	<div class="boxes">
 		<table class="grid" id="box00"></table>
 		<table class="grid" id="box01"></table>
 		<table class="grid" id="box02"></table>
 		<table class="grid" id="box03"></table>
 		<table class="grid" id="box04"></table>
-	</div> <br>
 
-	<div class="wrapper">
-		<button onclick="fillGrid()">New Shape (<span id="stock">5</span> left)</button>
-		<button onclick="rotateGrid()">Rotate</button>
-		<button onclick="flipGrid()">Mirror</button>
+		<div class="wrapper">
+			<button onclick="fillGrid()">New Shape<br>(<span id="stock">5</span>)</button>
+			<button onclick="rotateGrid()">Rotate<br><span class="hidden">-</span></button>
+			<button onclick="flipGrid()">Mirror<br><span class="hidden">-</span></button>
+		</div>
 	</div>
 
 	<audio id="click" src="sound/click.wav"></audio>
