@@ -22,6 +22,8 @@ var shapeList = [
 	[ [1,1],[2,1],[2,2],[3,2],[3,3] ]	// 5Z
 ];
 
+var totalScore = 0;
+
 function main(){
 	// Shape Setup - Assign Background Url Space in Array [x, y, bg]
 	for (var i=0; i<shapeList.length; i++){
@@ -369,6 +371,9 @@ function checkGameOver(){
 		}
 	}
 
+	// update total score
+	totalScore = switchIntStr(document.getElementById("score").innerHTML);
+
 	// passed checks (board completely full)
 	for (var r=0; r<5; r++){
 		for (var c=0; c<5; c++){
@@ -403,6 +408,7 @@ function calculateScore() {
 			}
 		}
 	}
+	score = score + totalScore;
 	document.getElementById("score").innerHTML = switchIntStr(score);
 }
 
