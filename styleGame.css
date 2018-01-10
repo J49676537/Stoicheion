@@ -6,7 +6,7 @@ hr{width: 90%; margin: 0.5em auto; border: 1px inset ivory;}
 @font-face{font-family: MainFont;  src: url('font/Cardo.ttf');}
 
 body{
-	background: url(img/bgAtelierSophie.jpg);
+	background: url(img/bgWorkshop.png);
 	background-size: cover;
 	background-position: center;
 	height: 100vh;
