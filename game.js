@@ -1,3 +1,6 @@
+// TODO	:	use lets instead of var
+// ETA	:	???
+
 var shapeList = [
 	[ [2,2]							],	// 1
 	[ [2,2],[3,2]					],	// 2
@@ -22,6 +25,7 @@ var shapeList = [
 	[ [1,1],[2,1],[2,2],[3,2],[3,3] ]	// 5Z
 ];
 
+// Global Variable
 var totalScore = 0;
 
 function main(){
@@ -119,6 +123,9 @@ function switchIntStr(input){
 		return input.toLocaleString();
 	}
 }
+
+// man i like this function a lot
+// ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Error Message Cloning to Replay Animation & Sound
 function errorMessage(messageText, audio){
@@ -419,7 +426,7 @@ function playAudio(id){
 	else{audio.currentTime = 0;}
 }
 
-// this function is pretty shit, need to rework it
+// pretty buggy in some cases, need to rework it but it does the job
 function toggle(id) {
 	if (document.getElementById(id).style.display === "none"){
 		document.getElementById(id).style.display = "block";

@@ -10,25 +10,24 @@
 
 <body>
 	<div id="landing">
-		<div class="textbox">
+		<div class="landing-box">
 			<h1>Stoicheion</h1>
 			<button type="button" onClick="toggle('landing')">Start</button> <br>
 
 			<button type="button" onClick="toggle('tutorial')">Tutorial</button> <br>
 			<div id="tutorial" style="display:none">
-				<p>Click a shape to select it, click again to unselect.</p>
-				<p>Click on where you want to place shapes on the grid.</p>
-				<p>Arrange shapes to fill up the grid completely.</p>
-				<p>You can overlap the same elements.</p> 
-				<p>The more you overlap the greater your score!</p><br>
+				<p>Arrange shapes to fill up the board completely.</p>
+				<p>Click a shape to select and unselect it.</p>
+				<p>Click on the board to place your selected shape.</p>
+				<p>Overlap the same elements to increase your score!</p><br>
 				<p>[New Shape] replaces the currently selected shape.</p>
-				<p>It is free to [Rotate] and [Mirror] the selected shape.</p> <br>
-				<p>You gain a New Shape if you complete the board.</p>
+				<p>You gain a New Shape every time you fill the board.</p>
+				<p>Use [Rotate] and [Mirror] as much as you want!</p> <br>
 			</div>
 
 			<button type="button" onClick="toggle('credits')">Credits</button> <br>
 			<div id="credits" style="display:none">
-				<p>Backgrounds : <a href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=56866389" target="_blank">Novelance</a>, Atelier Meruru</p>
+				<p>Backgrounds : <!--<a href="https://www.pixiv.net/member_illust.php?mode=medium&illust_id=56866389" target="_blank">Novelance</a>, -->Atelier Meruru</p>
 				<p>Menu Icons : Atelier Sophie</p>
 				<p>Element Icons : <a href="https://alda-rana.deviantart.com/art/Commission-Elements-527016079" target="_blank">Alda Rana</a></p>
 			</div>
@@ -49,8 +48,19 @@
 
 		<div class="wrapper">
 			<button onclick="fillGrid()">New Shape<br>x <span id="stock">5</span></button>
-			<button onclick="rotateGrid()">Rotate<br>&#10227;</button>
+			<button onclick="rotateGrid()">Rotate<br><span class="special-char">&#10227;</span></button>
 			<button onclick="flipGrid()">Mirror<br>&#8651;</button>
+			<button onClick="toggle('tutorial2')">Tutorial<br>?</button>
+		</div>
+
+		<div id="tutorial2" style="display:none">
+			<p>Arrange shapes to fill up the board completely.</p>
+			<p>Click a shape to select and unselect it.</p>
+			<p>Click on the board to place your selected shape.</p>
+			<p>Overlap the same elements to increase your score!</p><br>
+			<p>[New Shape] replaces the currently selected shape.</p>
+			<p>You gain a New Shape every time you fill the board.</p>
+			<p>Use [Rotate] and [Mirror] as much as you want!</p> <br>
 		</div>
 	</div>
 

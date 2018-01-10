@@ -6,12 +6,12 @@ hr{width: 90%; margin: 0.5em auto; border: 1px inset ivory;}
 @font-face{font-family: MainFont;  src: url('font/Cardo.ttf');}
 
 body{
-	background: url(img/bgWorkshop.png);
+	background: url(img/bgWorkshop.png) no-repeat fixed center;
 	background-size: cover;
-	background-position: center;
 	height: 100vh;
 	font-family: MainFont, Helvetica, sans-serif;
 	text-align: center;
+	overflow-x: hidden;
 }
 
 h1{font-family: TitleFont; font-size: 3.2em;}
@@ -23,14 +23,17 @@ a{color: maroon;}
 a:hover{color: cornflowerblue;}
 
 ::selection {
-  background: white;
+	background: white;
+}
+
+::-webkit-scrollbar {
+	display: none;
 }
 
 /* ==================== Landing ==================== */
 #landing {
-	background-image: url(img/bgAtelierMeruru.jpg);
+	background: url(img/bgAtelierMeruru.jpg) no-repeat fixed center;
 	background-size: cover;
-	background-position: center;
 	height: 100vh;
 	text-align: center;
 	color: darkslategrey;
@@ -47,12 +50,13 @@ a:hover{color: cornflowerblue;}
 	width: 100%;
 }
 
-.textbox{
+.landing-box{
 	background: rgba(255, 255, 255, 0.85);
 	padding: 1em;
 	width: 30%;
 	margin: auto;
 	border-radius: 15px;
+	overflow-y: scroll;
 }
 
 #landing button {
@@ -60,7 +64,7 @@ a:hover{color: cornflowerblue;}
 	font-size: 2.5em;
 	font-weight: bold;
 	color: darkslategrey;
-    text-shadow: 2px 2px ivory;
+	text-shadow: 2px 2px ivory;
 	width: 145px;
 	height: 63px;
 	margin: 5px auto;
@@ -74,13 +78,13 @@ a:hover{color: cornflowerblue;}
 }
 
 button:focus {
-    outline:none;
+	outline:none;
 }
 
 /* ====================== Game ===================== */
 #game {
 	color: ivory;
-    text-shadow: 1px 1px black;
+	text-shadow: 1px 1px black;
 	padding-top: 0.25em;
 }
 
@@ -114,7 +118,7 @@ button:focus {
 	text-align: left;
 	vertical-align: top;
 	color: transparent;
-    text-shadow: none;
+	text-shadow: none;
 }
 
 /* ==================== Grids ==================== */
@@ -145,15 +149,25 @@ button:focus {
 	font-size: 2em;
 	font-weight: bold;
 	color: ivory;
-    text-shadow: 2px 2px black;
+	text-shadow: 2px 2px black;
 	width: 145px;
 	height: 63px;
-	margin: 5px auto;
+	margin: 5px auto 15px auto;
 	background: url(img/buttonLogoSmall.png) center no-repeat;
 	background-color: transparent;
 	cursor: pointer;
+	/* firefox fix */
+	display: inline-block;
+	vertical-align: top;
 }
 
 #game button:hover {
 	filter: drop-shadow(5px 5px 3px #CCCCCC);
+}
+
+/* ==================== Mobile ==================== */
+@media (max-width: 900px){
+	.landing-box{
+		width: 75%;
+	}
 }
