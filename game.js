@@ -1,6 +1,3 @@
-// TODO	:	use lets instead of var
-// ETA	:	???
-
 var shapeList = [
 	[ [2,2]							],	// 1
 	[ [2,2],[3,2]					],	// 2
@@ -74,7 +71,8 @@ function main(){
 // Select Shape on Inventory Grid Click
 function selectGrid(){
 	var gridList = document.getElementsByClassName("grid");
-	// unselect if already selected
+	// "S" is appended to end of box id to indicate selected
+	// if selected, unselect | if unselected, select and unselect others
 	if (this.id.slice(-1) === "S"){
 		this.id = this.id.slice(0,-1);
 		this.style.backgroundColor = "";
@@ -100,10 +98,30 @@ function getSelected(){
 	}
 }
 
+// Random Number Generator
+function getRandomInt(min, max) {
+	min = Math.ceil(min);
+	max = Math.floor(max);
+	return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 // Deep Copy Random Shape from Shape List & Add Random Background Image per Vector
 // WARNING: this function is nested in loops
 function deepCopyShape(){
-	var randShape = shapeList[Math.floor(Math.random() * (shapeList.length))];
+	// Adjusting shape probability
+	var rand1 = getRandomInt(1,100)
+	var shapeNum = 0
+	switch(true) {
+		case rand1 <= 10 : shapeNum = 0; break;
+		case rand1 <= 25 : shapeNum = 1; break;
+		case rand1 <= 45 : shapeNum = getRandomInt(2,3); break;
+		case rand1 <= 80 : shapeNum = getRandomInt(4,8); break;
+		case rand1 <= 100 : shapeNum = getRandomInt(9,20); break;
+		default: console.log("ERROR"); break;
+	}
+	//console.log(rand1, shapeNum)
+
+	var randShape = shapeList[shapeNum];
 	var shapeClone = [];
 	for (var j=0; j<randShape.length; j++){
 		shapeClone[j] = randShape[j].slice();
@@ -123,8 +141,6 @@ function switchIntStr(input){
 		return input.toLocaleString();
 	}
 }
-
-// man i like this function a lot
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // Error Message Cloning to Replay Animation & Sound
@@ -205,7 +221,6 @@ function getSelectedVectors(gridId){
 function rotateVectors(vectors){
 	var R = [[0,1],[-1, 0]]; // rotation matrix
 
-	// DEEP copy of vector array - is this actually a deep copy? - doesn't matter it works
 	var newVectors = [];
 	for (var i=0; i<vectors.length; i++){
 		newVectors[i] = [vectors[i][0], vectors[i][1], vectors[i][2]];
@@ -228,7 +243,7 @@ function rotateVectors(vectors){
 // Flip a shape by mirroring the x axis at 2
 function flipVectors(vectors){
 	newVectors = [];
-	for (var i=0; i<vectors.length; i++){	// is there a better way to do this?
+	for (var i=0; i<vectors.length; i++){
 		var mirror = 2;	// middle
 		if (vectors[i][1] === 0){mirror = 4;}
 		if (vectors[i][1] === 1){mirror = 3;}		
